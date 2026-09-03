@@ -1,0 +1,113 @@
+http
+GET,POST,PUT,PATCH,DELETE
+
+    GET
+        to get the data from server
+        passing data will be visible in the url
+        browser will store the history
+        we should not use this for sending the secure data(Ex:password,otp)
+        data limit will be there..upto 1024 or 2048
+        so not good for sending the file(pdf,image,video)
+    POST
+         to store the data in server
+         passing data will not be visible in the url
+         browser will not store the history
+         so we should  use this for sending the secure data(Ex:password,otp)
+         no data limit
+         so  good for sending the file(pdf,image,video)
+    PUT
+        method is for update the records
+        passing data will not be visible in the url
+        browser will not store the history
+        so we should  use this for sending the secure data(Ex:password,otp)
+        no data limit
+    PATCH
+        method is for update the one data
+        passing data will not be visible in the url
+        browser will not store the history
+        so we should  use this for sending the secure data(Ex:password,otp)
+        no data limit
+
+    DELETE
+            method is for delete the one data
+            browser will not store the history
+            so we should  use this for sending the secure data(Ex:password,otp)
+            no data limit
+
+
+sending the data(from browser,postman,mobile app):
+1.query param
+2.Request Body
+3.path variable
+4.multipart data(uploading the file)
+
+Query Param
+can use with any http method(get,post,put,delet,patch)
+data will start with ? in the url
+www.google.com/search?q=what is chatgpt
+
+Request Body:
+work with only post,put
+work for form(login,Register)
+to send the json data
+{
+    name:"asdf",
+    age:89
+    mobile:98979789
+}
+
+[
+{
+    name:"asdf",
+    age:89
+    mobile:98979789
+},
+{
+    name:"asdf",
+    age:89
+    mobile:98979789
+}
+]
+
+
+
+Path variable:
+work with any http method(get,post,put,delete)
+data will be passed inthe url so history maintains in the browser history
+www.google.com/user/1
+www.google.com/user/2
+www.google.com/user/3
+
+PUT
+www.sample.com/user/update/13
+Request body
+{
+"password":"new_password"
+}
+
+
+
+GET
+    @GetMapping
+POST
+    @PostMapping
+PUT
+    @PutMapping
+PATCH
+    @PatchMapping
+DELETE
+    @DeleteMapping
+QUERY PARAM
+    @QueryParam
+REQUEST BODY
+    @REQUESTBODY
+PATH VARIABLE
+    @PATHVARIABLE
+
+
+{
+"name":"",
+"address":"",
+"mobile":"",
+"age":"",
+}
