@@ -2,6 +2,8 @@ package com.aug2026springboot.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "user")
 public class UserModel{
@@ -12,6 +14,31 @@ public class UserModel{
     String address;
     @Column(name = "mobile")
     String phone;
+
+    @OneToOne(mappedBy = "userModel")
+    HobbyModel hobbyModel;
+
+    @OneToMany(mappedBy = "userModel")
+    List<AddressModel> addressModel;
+
+
+    public List<AddressModel> getAddressModel() {
+        return addressModel;
+    }
+
+    public void setAddressModel(List<AddressModel> addressModel) {
+        this.addressModel = addressModel;
+    }
+
+
+    public HobbyModel getHobbyModel() {
+        return hobbyModel;
+    }
+
+    public void setHobbyModel(HobbyModel hobbyModel) {
+        this.hobbyModel = hobbyModel;
+    }
+
 
     public String getPassword() {
         return password;

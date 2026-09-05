@@ -79,6 +79,19 @@ public class HomeController {
 
     }
 
+
+    @PostMapping("hobby")
+    public ResponseEntity<?> storeHobby(@RequestParam Long user_id,@RequestParam String hobby){
+
+        try{
+            userService.storeHobby(user_id,hobby);
+            return  ResponseEntity.ok(new GeneralResponse("hobby is stored!!"));
+        }catch (Exception e){
+//            return ResponseEntity.badRequest().body(new GeneralResponse(e.getMessage()));
+            return new ResponseEntity<>(new GeneralResponse(e.getMessage()), HttpStatus.valueOf(404));
+        }
+    }
+
     @PostMapping("user/login")
     public ResponseEntity<?> login(@RequestBody UserRequest userRequest
     ){

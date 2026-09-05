@@ -5,30 +5,30 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "address")
 public class AddressModel {
+    public Long getAddress_id() {
+        return address_id;
+    }
+
+    public void setAddress_id(Long address_id) {
+        this.address_id = address_id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String user_id;
+    Long address_id;
+//    String user_id;
     String description;
     @Column(insertable = false,updatable = false)
     String created_date_time;
 
 
-    public Long getId() {
-        return id;
-    }
+//    by default join column is primary key
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    UserModel userModel;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getUser_id() {
-        return user_id;
-    }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
-    }
 
     public String getDescription() {
         return description;

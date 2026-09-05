@@ -1,7 +1,9 @@
 package com.aug2026springboot.service;
 
+import com.aug2026springboot.Repository.HobbyRepo;
 import com.aug2026springboot.Repository.UserRepo;
 import com.aug2026springboot.dto.UserRequest;
+import com.aug2026springboot.model.HobbyModel;
 import com.aug2026springboot.model.UserModel;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,10 @@ import java.util.Objects;
 public class UserService {
 
     final UserRepo userRepo ;
-    public UserService(UserRepo userRepo ){
+    final HobbyRepo hobbyRepo;
+    public UserService(UserRepo userRepo,HobbyRepo hobbyRepo ){
         this.userRepo=userRepo;
+        this.hobbyRepo=hobbyRepo;
     }
 
     public List<UserModel> getUserList()throws Exception{
@@ -46,6 +50,16 @@ public class UserService {
            return  true;
     }
 
+    public Boolean storeHobby(Long user_id,String hobbyName)throws  Exception{
+        UserModel userModel = getUserId(user_id);
+        HobbyModel hobbyModel = new HobbyModel();
+        //one user can have only one hobby..if user has alrady it has to throw the error
+        hobbyModel.setName(hobbyName);
+        hobbyModel.setUserModel(userModel);
+        this.hobbyRepo.save(hobbyModel);
+        return  true;
+    }
+
     public Boolean updateUser(Long userId,UserRequest userRequest)throws  Exception{
         UserModel userModel = getUserId(userId);
         if (Objects.nonNull(userRequest.getName())){
@@ -66,4 +80,6 @@ public class UserService {
         userRepo.delete(userModel);
         return  true;
     }
+
+
 }
