@@ -1,6 +1,6 @@
 package com.aug2026springboot.dto;
 
-public class UserRequest {
+public class UserDto {
     String name;
     String address;
     String mobile;

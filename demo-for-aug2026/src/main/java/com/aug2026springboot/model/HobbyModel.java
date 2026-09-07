@@ -1,5 +1,6 @@
 package com.aug2026springboot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,10 +15,18 @@ public class HobbyModel {
     String created_datetime;
 
 
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
+    }
 
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     UserModel userModel;
 
     public Long getHobby_id() {

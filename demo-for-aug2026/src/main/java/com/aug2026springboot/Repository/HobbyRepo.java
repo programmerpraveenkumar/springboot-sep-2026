@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface HobbyRepo extends JpaRepository<HobbyModel,Long>{
-//    @Query("select hobby from HobbyRepo hobby where user_id=?1")
-//    Optional<HobbyModel> getHobbyFromUserId(Long user_id);
+    //get the hobby by userid
+    @Query("select hobby from HobbyModel hobby where hobby.userModel.id=?1")
+    Optional<HobbyModel> getHobbyFromUserId(Long user_id);
 }

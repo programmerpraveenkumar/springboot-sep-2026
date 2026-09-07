@@ -111,3 +111,13 @@ PATH VARIABLE
 "mobile":"",
 "age":"",
 }
+
+LOGGING
+
+info
+
+
+flight scheduling:
+
+before 6 month
+db->cache->read the data and show in the ui
