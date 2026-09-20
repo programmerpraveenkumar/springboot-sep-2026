@@ -21,7 +21,7 @@ public class Cron_Sample {
     @Scheduled(cron = "0 0 9 * * *")
     public void sample(){
            try{
-               List<UserModel> userList = userService.getUserList();
+               List<UserModel> userList = userService.getUserList(0,10);
 //               /for extract the details and send the mail or sms
                System.out.println(LocalDateTime.now());
            }catch (Exception e){

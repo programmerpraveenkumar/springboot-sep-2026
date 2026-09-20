@@ -9,9 +9,14 @@ import com.aug2026springboot.model.UserModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.ObjectMapper;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,15 +36,22 @@ public class UserService {
     }
 
     @Cacheable("users")
-    public List<UserModel> getUserList()throws Exception{
-        //get all the data from user table.
-        List<UserModel> list= this.userRepo.getUserList();
+    public List<UserModel> getUserList(int pageNumber,int pageSize)throws Exception{
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+//        Sort sort = Sort.by(Sort.Order.asc("name"));
+                        //get all the data from user table.
+        List<UserModel> list= this.userRepo.getUserList(pageable);
+
+//        list.sort(Comparator.comparing(UserModel::getName,String.CASE_INSENSITIVE_ORDER));
+
         logger.info("inside service");
         if (list.size() <=0){
             throw new Exception("No user found");
         }
         return  list;
     }
+
+
 
     public  UserModel login(String name,String password)throws Exception{
         //get all the data from user table.
@@ -53,15 +65,17 @@ public class UserService {
         return this.userRepo.findById(id).orElseThrow(()->new MyContollerException("NO USER Found"));
 
     }
+    @Transactional(rollbackFor = Exception.class)
     public Boolean storeUser(UserDto userRequest)throws  Exception{
 //           UserModel userModel = new UserModel();
-             UserModel userModel =  objectMapper.convertValue(userRequest, UserModel.class);
-//           userModel.setName(userRequest.getName());
-//           userModel.setAddress(userRequest.getAddress());
-//           userModel.setPhone(userRequest.getMobile());
-            //insert the data into the table
-           userRepo.save(userModel);
-       return  true;
+              UserModel userModel =  objectMapper.convertValue(userRequest, UserModel.class);
+              System.out.println("inserted");
+              userRepo.save(userModel);
+            //multiple repo can be rollback
+              if(userRequest.getName().equals("test")){
+                throw new Exception("Error in for rollback");
+              }
+            return  true;
     }
 
     public Boolean storeHobby(Long user_id,String hobbyName)throws MyContollerException {
