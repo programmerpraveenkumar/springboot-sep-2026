@@ -1,0 +1,14 @@
+bin\windows\kafka-storage.bat random-uuid
+
+bin/kafka-storage.sh random-uuid
+
+x2UeDScOTX6YmKnRxNon5A
+
+bin/kafka-storage.sh format  --standalone -t x2UeDScOTX6YmKnRxNon5A -c config/server.properties
+Bin/kafka-server-start.sh config/server.properties
+
+
+
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic orders --partitions 1 --replication-factor 1

@@ -2,6 +2,7 @@ package com.aug2026springboot.controller;
 
 import com.aug2026springboot.config.MyContollerException;
 import com.aug2026springboot.dto.GeneralResponse;
+import com.aug2026springboot.dto.UserApiObject;
 import com.aug2026springboot.dto.UserDto;
 import com.aug2026springboot.model.UserModel;
 import com.aug2026springboot.service.UserService;
@@ -9,6 +10,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -233,5 +236,17 @@ public class HomeController {
         }catch (Exception e){
             return new ResponseEntity<>(new GeneralResponse(e.getMessage()), HttpStatus.valueOf(404));
         }
+    }
+
+    @GetMapping("/getuser")
+    public ResponseEntity<?>  getUserListFromApI(){
+        try{
+            WebClient webClient = WebClient.create();
+            List<UserApiObject> userList =  webClient.get().uri("https://www.apirequest.in/api/user").retrieve().bodyToMono(new ParameterizedTypeReference<List<UserApiObject>>() {}).block();
+            return ResponseEntity.ok(userList);
+        } catch (Exception e) {
+            return new ResponseEntity<>(new GeneralResponse(e.getMessage()), HttpStatus.valueOf(400));
+        }
+
     }
 }

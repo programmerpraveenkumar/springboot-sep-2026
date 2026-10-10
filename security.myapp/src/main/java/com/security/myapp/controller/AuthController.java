@@ -28,6 +28,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
         try{
             System.out.println(loginRequest.getUsername());
+            //UserDetailsService
             Authentication authentication =  authenticationManager.
                     authenticate(new UsernamePasswordAuthenticationToken(
                             loginRequest.getUsername(),loginRequest.getPassword()
