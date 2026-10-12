@@ -14,7 +14,8 @@ public class OrderController {
     }
     @GetMapping("/order")
     public ResponseEntity<?> getData(@RequestParam String orderId){
-        kafkaTemplate.send("orders",orderId);
+        System.out.println("order id ready to publish "+orderId);
+        kafkaTemplate.send("order1",orderId);
         return ResponseEntity.ok("");
     }
 }

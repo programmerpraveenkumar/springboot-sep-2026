@@ -7,10 +7,11 @@ import org.springframework.kafka.annotation.KafkaListener;
 public class OrderKafkaConsumer {
 
     @KafkaListener(
-            topics = "orders",
-            groupId = "payment-service"
+            topics = "order1"
+
     )
     public  void orderRecvd(String orderid){
-        System.out.println(orderid);
+        System.out.println( "recvd");
+        System.out.println( orderid);
     }
 }
