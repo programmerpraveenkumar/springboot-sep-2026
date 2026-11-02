@@ -1,0 +1,26 @@
+backend
+    wil not visible to the users
+    rest api + database connection
+    crud opeeration->writing and read opeeration in the db
+    Tech:Java + spring boot + mysql
+
+
+frontend:
+    will be visible to the users   
+        Ex: website ,mobile app,desktop app
+        Tech:html,css,javascript(react+angular)
+        html,css,javascript+typescript+angular     
+
+fulstack app:
+    HTTP Request
+        frontend -> backend api
+        restapi wil be trigger from the frontend
+    Http Response:
+        backend -> frontend
+        spring boot  will generate the response for request
+
+
+html:
+    head,body
+        head-> to include any lib ex:css,javascript
+        body-> to display the content in the browser
