@@ -17,7 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.Resource;
@@ -43,15 +43,15 @@ public class HomeController {
     @Value("${COUNTRY}")
     String country;
 
-    private final JavaMailSender javaMailSender;
+//    private final JavaMailSender javaMailSender;
     @Value("${spring.profiles.active}")
     String active_profile;
 
     final UserService userService;
     //spring boot will inject the object of userservice
-    public HomeController(UserService userService,JavaMailSender javaMailSender){
+    public HomeController(UserService userService){
         this.userService = userService;
-        this.javaMailSender = javaMailSender;
+//        this.javaMailSender = javaMailSender;
     }
     @GetMapping("login")
     public String login(){
@@ -203,7 +203,7 @@ public class HomeController {
             simpleMailMessage.setTo("demo2@localhost");
             simpleMailMessage.setText("sample mail content");
 
-            javaMailSender.send(simpleMailMessage);
+//            javaMailSender.send(simpleMailMessage);
 
             return  ResponseEntity.ok(new GeneralResponse("Email sent!!"));
         }catch (Exception e){
