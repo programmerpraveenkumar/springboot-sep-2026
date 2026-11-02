@@ -35,7 +35,7 @@ public class UserService {
         this.hobbyRepo=hobbyRepo;
     }
 
-    @Cacheable("users")
+//    @Cacheable("users")
     public List<UserModel> getUserList(int pageNumber,int pageSize)throws Exception{
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
 //        Sort sort = Sort.by(Sort.Order.asc("name"));
