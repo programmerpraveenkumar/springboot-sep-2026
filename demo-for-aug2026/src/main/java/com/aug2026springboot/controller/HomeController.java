@@ -109,6 +109,7 @@ public class HomeController {
                           ){
 
         try{
+            //small change for github action
             logger.info("store user started {} {}",userRequest.getName(),userRequest.getMobile());
             userService.storeUser(userRequest);
             logger.info("store user completed ");
