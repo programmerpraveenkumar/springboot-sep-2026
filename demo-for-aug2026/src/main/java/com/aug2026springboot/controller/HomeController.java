@@ -31,7 +31,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 //http:localhost:8080/login/user
-//http:localhost:8080/user/login
 
 @RestController
 @RequestMapping("/api")
