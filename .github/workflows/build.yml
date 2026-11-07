@@ -28,4 +28,4 @@ jobs:
 
       - name: Build Application
         working-directory: demo-for-aug2026
-        run: mvn clean package -DskipTests=false
+        run: mvn clean package -DskipTests
