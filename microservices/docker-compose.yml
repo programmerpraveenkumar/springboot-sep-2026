@@ -4,7 +4,7 @@ services:
   # Eureka Discovery Server
   ms-server:
     build:
-      context: ./microservices/ms-server
+      context: ./ms-server
     container_name: ms-server
     expose:
       - "8761" 
@@ -17,7 +17,7 @@ services:
   # API Gateway
   apigateway:
     build:
-      context: ./microservices/apigateway
+      context: ./apigateway
     container_name: apigateway
     ports:
       - "8083:8083"
@@ -32,7 +32,7 @@ services:
   # User Service
   user-service:
     build:
-      context: ./microservices/user-service
+      context: ./user-service
     container_name: user-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://ms-server:8761/eureka/
@@ -54,7 +54,7 @@ services:
   # Order Service
   order-service:
     build:
-      context: ./microservices/order-service
+      context: ./order-service
     container_name: order-service
     environment:
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://ms-server:8761/eureka/
