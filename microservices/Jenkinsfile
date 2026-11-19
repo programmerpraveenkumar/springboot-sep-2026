@@ -1,0 +1,79 @@
+
+pipeline {
+
+    agent any
+
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Eureka Server') {
+            steps {
+                sh '''
+                    mvn -f microservices/ms-server/pom.xml clean package -DskipTests
+                '''
+            }
+        }
+
+        stage('Build API Gateway') {
+            steps {
+                sh '''
+                    mvn -f microservices/apigateway/pom.xml clean package -DskipTests
+                '''
+            }
+        }
+
+        stage('Build User Service') {
+            steps {
+                sh '''
+                    mvn -f microservices/user-service/pom.xml clean package -DskipTests
+                '''
+            }
+        }
+
+        stage('Build Order Service') {
+            steps {
+                sh '''
+                    mvn -f microservices/order-service/pom.xml clean package -DskipTests
+                '''
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh '''
+                    docker compose build
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                 withEnv([
+            'MYSQL_USER=appuser',
+            'MYSQL_PASSWORD=AppPassword@123'
+        ]) {
+                    sh '''
+                        docker compose up -d --remove-orphans
+                    '''
+                }
+            }
+        }
+
+    }
+
+    post {
+        success {
+            echo 'Microservices deployed successfully!'
+        }
+
+        failure {
+            echo 'Deployment failed. Check Jenkins logs.'
+        }
+    }
+}
