@@ -13,12 +13,10 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
 
-    private  final MessageProducer messageProducer;
     private final UserClient userClient;
 
-    public OrderController(UserClient userClient,MessageProducer messageProducer) {
+    public OrderController(UserClient userClient ) {
         this.userClient = userClient;
-        this.messageProducer = messageProducer;
     }
 
 
@@ -31,14 +29,6 @@ public class OrderController {
         return userClient.getUserList();
     }
 
-        @GetMapping("/send")
-    public ResponseEntity<?> sendMessage(@RequestParam String message) {
-        try{
-            messageProducer.sendMessage(message);
-            return ResponseEntity.ok("");
-        } catch (Exception e) {
-                return  ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+    
 
 }
